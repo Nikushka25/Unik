@@ -1,0 +1,74 @@
+from abc import ABC, abstractmethod
+class StudyMaterial(ABC):
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        pass
+
+    @abstractmethod
+    def execute(self, student_name: str):
+        pass
+
+class LectureMaterial(StudyMaterial):
+    @property
+    def name(self) -> str:
+        return "Лекция"
+
+    def execute(self, student_name: str):
+        print(f" -> Студент {student_name} читает лекцию.")
+
+class OnlineTestMaterial(StudyMaterial):
+    @property
+    def name(self) -> str:
+        return "Онлайн-тест"
+
+    def execute(self, student_name: str):
+        print(f" -> Студент {student_name} проходит онлайн-тест.")
+
+
+class Student:
+    def __init__(self, name: str):
+        self.name = name
+
+class Teacher:
+   
+    def publish_material(self, material: StudyMaterial) -> StudyMaterial:
+        print(f" Преподаватель выложил материал: {material.name}")
+        return material
+
+    def grade_student(self, student: Student, grade: int):
+        print(f" Преподаватель выставил оценку {grade} студенту {student.name}.")
+
+class Archive:
+    
+    def save_grade(self, student: Student, grade: int):
+        print(f" [Архив] Оценка {grade} для {student.name} сохранена.")
+
+
+class ConsoleUI:
+    def run_scenario(self):
+        print("--- Студент поступил на Факультатив ---")
+        student = Student("Панфилова В.А.")
+        teacher = Teacher()
+        archive = Archive()
+
+        
+        material_lecture = LectureMaterial()
+        assigned_lecture = teacher.publish_material(material_lecture)
+        assigned_lecture.execute(student.name)
+
+        material_test = OnlineTestMaterial()
+        assigned_test = teacher.publish_material(material_test)
+        assigned_test.execute(student.name)
+
+       
+        final_grade = 5 
+        teacher.grade_student(student, final_grade)
+        archive.save_grade(student, final_grade)
+        
+        print(f"--- Студент {student.name} успешно завершил обучение ---")
+
+if __name__ == "__main__":
+    ui = ConsoleUI()
+    ui.run_scenario()
+    input("Нажмите Enter для выхода...")
