@@ -1,0 +1,32 @@
+class FacultyManager:
+    def process_course(self, student_name):
+        print(f"--- Студент {student_name} начинает обучение на курсе ---")
+        
+        # Логика преподавателя
+        print("Преподаватель выложил лекцию.")
+        
+        # Студент выбирает действие
+        print("Выберите действие студента: 1 - Прочитать лекцию, 2 - Пройти тест")
+        choice = int(input())
+        
+        if choice == 1:
+            action = "Чтение лекции"
+        elif choice == 2:
+            action = "Прохождение теста"
+        else:
+            action = "Неизвестно"
+            
+        print(f"Студент выполняет: {action}")
+        
+        # Логика выставления оценки (преподаватель вводит сам)
+        print("Преподаватель проверяет работу.")
+        grade = int(input("Введите оценку студенту (2-5): "))
+        
+        # Сохранение в архив
+        print(f"Оценка {grade} сохранена в Архив Студентов.")
+        print(f"Студент {student_name} завершил курс.\n")
+
+if __name__ == "__main__":
+    manager = FacultyManager()
+    manager.process_course("Панфилова В.А.")
+    input("Нажмите Enter для выхода...")
